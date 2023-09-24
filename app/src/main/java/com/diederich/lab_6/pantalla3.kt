@@ -68,6 +68,8 @@ fun contett(){
             ) {
                 Text(
                     text = " Lugar",
+                    color = Color.DarkGray,
+
                     fontSize = 14.sp
                 )
             }
@@ -105,20 +107,22 @@ fun contett(){
                 Icon(
                     imageVector = Icons.Default.DateRange,
                     contentDescription = null,
-                    tint = Color.Gray,
+                    tint = Color.DarkGray,
                     modifier = Modifier.size(20.dp)
                 )
                 Text(
                     text = "Fecha",
                     fontSize = 14.sp,
-                    color = Color.Gray,
+                    color = Color.DarkGray,
                     modifier = Modifier.padding(start = 4.dp) // Ajusta el espacio entre el ícono y el texto
                 )
             }
+
+
             Text(
                 text = "Hora",
                 fontSize = 14.sp,
-                color = Color.Gray
+                color = Color.DarkGray
             )
         }
 

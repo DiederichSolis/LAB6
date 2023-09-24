@@ -5,10 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.ArrowDropDown
@@ -34,7 +31,7 @@ class pantalla2 : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    my_components()
+                    componentsscreen()
                 }
             }
         }
@@ -58,6 +55,7 @@ fun componentsscreen(){
             .background(Color.White)
             .padding(top = 0.dp) // Puedes ajustar este valor según tus necesidades
     ) {
+        Divider(color = Color.LightGray, modifier = Modifier.padding(vertical =8.dp ))
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -94,6 +92,7 @@ fun componentsscreen(){
                 contentDescription = "user"
             )
         }
+        Divider(color = Color.LightGray, modifier = Modifier.padding(vertical =8.dp ))
 
         Row(
             modifier = Modifier
@@ -132,7 +131,7 @@ fun componentsscreen(){
             )
         }
 
-
+        Divider(color = Color.LightGray, modifier = Modifier.padding(vertical =8.dp ))
 
         Row(
             modifier = Modifier
@@ -172,7 +171,7 @@ fun componentsscreen(){
             )
         }
 
-
+        Divider(color = Color.LightGray, modifier = Modifier.padding(vertical =8.dp ))
 
 
 
