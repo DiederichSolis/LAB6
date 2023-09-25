@@ -26,6 +26,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 
 import androidx.compose.runtime.*
 import androidx.compose.ui.draw.clip
+import androidx.navigation.compose.rememberNavController
 import com.diederich.lab_6.ui.theme.cc
 
 
@@ -50,6 +51,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun my_components(){
+    val navController = rememberNavController()
     Column (    modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally)
     {
