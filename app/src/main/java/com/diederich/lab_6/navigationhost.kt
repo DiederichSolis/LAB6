@@ -10,8 +10,8 @@ import com.diederich.lab_6.Items_menu.*
 
 @Composable
 fun NavigationHost(navController:NavHostController){
-    NavHost(navController = navController , startDestination = pantalla1.ruta  ){
-        composable(pantalla1.ruta){
+    NavHost(navController = navController , startDestination = p1.ruta  ){
+        composable(p1.ruta){
             MainActivity()
 
         }

@@ -1,5 +1,6 @@
 package com.diederich.lab_6
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -26,9 +27,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 
 import androidx.compose.runtime.*
 import androidx.compose.ui.draw.clip
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.diederich.lab_6.ui.theme.cc
 
+import com.diederich.lab_6.Items_menu.*
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,9 +54,22 @@ class MainActivity : ComponentActivity() {
 
 
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun my_components(){
     val navController = rememberNavController()
+    val scaffoldState = rememberScaffoldState()
+    val scope = rememberCoroutineScope()
+
+    val navigation_item = listOf(
+        p1,
+        p2,
+        p3,
+        p4)
+
+  Scaffold(scaffoldState=scaffoldState, bottomBar = {Navegacioninferior(navController,navigation_item)}) {
+NavigationHost(navController)
+  }
     Column (    modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally)
     {
@@ -361,120 +379,37 @@ fun my_components(){
         }
 
 
-
-        //CARDS
-        Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-
-        ) {
-
-            Spacer(modifier = Modifier.width(16.dp))
-
-            Card(
-                modifier = Modifier
-                    .width(175.dp)
-                    .height(225.dp),
-                shape = RoundedCornerShape(11.dp), // Forma redondeada, ajusta el radio según lo desees
-                backgroundColor = cc
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(16.dp),
-                    verticalArrangement = Arrangement.Top // Alinea los elementos en la parte superior
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.cardimage1),
-                        contentDescription = null, // Descripción del contenido para accesibilidad
-                        modifier = Modifier
-                            .fillMaxWidth() // La imagen se extenderá en toda la parte superior de la Card
-                            .height(150.dp) // Altura de la imagen
-                            .padding(bottom = 8.dp) // Espacio inferior entre la imagen y los textos
-                            .aspectRatio(1f) // Relación de aspecto cuadrada
-                            .clip(MaterialTheme.shapes.small) // Forma de círculo
-
-                    )
-
-                    Spacer(modifier = Modifier.height(2.dp))
-
-                    Text(
-                        text = "Title",
-                        style = TextStyle(
-                            fontSize = 16.sp, // Ajusta el tamaño del texto aquí
-                            color = Color.Black // Color del texto
-                        )
-                    )
-
-                    Text(
-                        text = "Supporting text",
-                        style = TextStyle(
-                            fontSize = 14.sp, // Ajusta el tamaño del texto aquí
-                            color = Color.Black // Color del texto
-                        )
-                    )
                 }
-                // Puedes agregar otro elemento en esta fila si lo necesitas
+
             }
 
 
+@Composable
+fun currentRoute(navController: NavHostController,
+): String ?{
+    val entrada by navController.currentBackStackEntryAsState()
+    return entrada?.destination?.route
 
-            Spacer(modifier = Modifier.width(16.dp))
-
-            //Segundo card
-            Card(
-                modifier = Modifier
-                    .width(175.dp)
-                    .height(225.dp),
-                shape = RoundedCornerShape(11.dp), // Forma redondeada, ajusta el radio según lo desees
-                backgroundColor = cc
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(16.dp),
-                    verticalArrangement = Arrangement.Top // Alinea los elementos en la parte superior
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.cardimage1),
-                        contentDescription = null, // Descripción del contenido para accesibilidad
-                        modifier = Modifier
-                            .fillMaxWidth() // La imagen se extenderá en toda la parte superior de la Card
-                            .height(145.dp) // Altura de la imagen
-                            .padding(bottom = 8.dp) // Espacio inferior entre la imagen y los textos
-                            .aspectRatio(1f) // Relación de aspecto cuadrada
-                            .clip(MaterialTheme.shapes.small) // Forma de círculo
-
-                    )
-
-                    Spacer(modifier = Modifier.height(8.dp))
-
-                    Text(
-                        text = "Title",
-                        style = TextStyle(
-                            fontSize = 16.sp, // Ajusta el tamaño del texto aquí
-                            color = Color.Black // Color del texto
-                        )
-                    )
-
-                    Text(
-                        text = "Supporting text",
-                        style = TextStyle(
-                            fontSize = 14.sp, // Ajusta el tamaño del texto aquí
-                            color = Color.Black // Color del texto
-                        )
-                    )
-                }
-                // Puedes agregar otro elemento en esta fila si lo necesitas
-            }
+}
+@Composable
+fun Navegacioninferior(navController: NavHostController,
+menu_items : List<Items_menu>){
+BottomAppBar() {
+    BottomNavigation() {
+        val currentRoute = currentRoute(navController = navController)
+        menu_items.forEach{ item->
+            BottomNavigationItem(
+                selected = currentRoute == item.ruta ,
+                onClick = { navController.navigate(item.ruta) },
+            icon = {
+                Icon(painter = painterResource(id = item.icon), contentDescription = item.title)
+            },
+            label = {Text(item.title)},
+            alwaysShowLabel = false)
         }
-
-
     }
 }
-
-
+}
 @Preview
 @Composable
 fun previous(){
